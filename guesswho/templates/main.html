@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<!--BOOTSTRAP CSS-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- link rel="stylesheet" type="text/css" href="mystyle.css"-->
+
+<style>
+    img {
+        width: 100%;
+    }
+
+    .picture {
+        cursor: pointer;
+        width: 20%;
+        margin: 10px
+    }
+
+    .picture:hover{
+        opacity: 0.4;
+    }
+
+    .name {
+        text-align: center;
+    }
+
+</style>
+
+<script>
+    function toggle(el) {
+        let dark_opacity = "0.2"
+        if (el.style.opacity !== dark_opacity) {
+            el.style.opacity = dark_opacity;
+        } else {
+            el.style.opacity = "1"
+        }
+    }
+
+    function reset(el) {
+        var allPictures = document.getElementsByClassName("picture")
+        for (picture of allPictures) {
+            picture.style.opacity = "1"
+        }
+    }
+</script>
+
+<body>
+<div class="container">
+    <div class="row">
+        {% for i in images %}
+            <div class="picture" onclick="toggle(this)">
+                <img src="{% static "placeholder.png" %}" onclick="" alt="alt-text"/>
+                <p>
+                <div class="name">Your text</div>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+    <button onclick="reset()">Reset</button>
+</div>
+</div>
+</body>
+</html>
