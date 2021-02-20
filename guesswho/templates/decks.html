@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+    .card{
+        margin: 10px;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% for deck in decks %}
+        <div class="card" style="width: 18rem; margin-left: auto; margin-right: auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{ deck.name }}</h5>
+                <a href="{% url 'index' hash=deck.hash %}" class="card-link">Play</a>
+                <a href="#" class="card-link">Edit</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="card" style="width: 18rem; margin-left: auto; margin-right: auto;">
+        <div class="card-body">
+{#            <h5 class="card-title">{{ deck.name }}</h5>#}
+{#            <a href="{% url 'index' hash=deck.hash %}" class="card-link">Play</a>#}
+            <a href="#" class="card-link">New Deck</a>
+        </div>
+    </div>
+
+{% endblock %}

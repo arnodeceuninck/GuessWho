@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'guesswho'
+    'guesswho',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,6 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'guesswho.decks'
+LOGOUT_REDIRECT_URL = 'guesswho.index'

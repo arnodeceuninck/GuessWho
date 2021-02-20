@@ -17,10 +17,15 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin', admin.site.urls),
-    path('<str:hash>', views.index, name='index')
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('', include("accounts.urls")),
+                  path('accounts/', include('django.contrib.auth.urls')),
+                  path('decks', views.decks, name='decks'),
+                  path('decks/create', views.DeckView.as_view(), name='CreateDeck'),
+                  # path('<str:hash>/edit', views.deck, name='deck'),
+                  path('<str:hash>', views.index, name='index')
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

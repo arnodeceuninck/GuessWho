@@ -1,133 +1,125 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-
-<!--BOOTSTRAP CSS-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<!-- link rel="stylesheet" type="text/css" href="mystyle.css"-->
-
-<style>
-    .person-image {
-        width: 100%;
-    }
-
-    .selected-person {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-    }
-
-    .person {
-        cursor: pointer;
-        width: 20%;
-        margin: 10px
-    }
-
-    .picture:hover {
-        opacity: 0.4;
-    }
-
-    .name {
-        text-align: center;
-    }
-
-    .heading {
-        text-align: center;
-    }
-
-
-</style>
-
-<script>
-    function isInGame(){
-        return document.getElementById("ingame").style.visibility === "visible"
-    }
-
-    function toggleInGame(){
-        if (!isInGame()){
-            document.getElementById("info").innerHTML = "Click on people who you don't think it is"
-            document.getElementById("ingame").style.visibility = "visible";
-            document.getElementById("random").style.visibility = "hidden";
-        } else {
-            document.getElementById("info").innerHTML = "Select a player your opponent must guess";
-            document.getElementById("ingame").style.visibility = "hidden";
-            document.getElementById("random").style.visibility = "visible";
+{% block head %}
+    <style>
+        .person-image {
+            width: 100%;
         }
-    }
 
-    function updateSelected(src, name){
-        document.getElementById("selected-image").src = src;
-        document.getElementById("selected-name").innerHTML = name;
-    }
+        .selected-person {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
 
-    function toggle(el) {
-        if (!isInGame()){
-            image = el.childNodes[1]
-            updateSelected(image.src, image.alt)
+        .person {
+            cursor: pointer;
+            width: 20%;
+            margin: 10px
+        }
+
+        .picture:hover {
+            opacity: 0.4;
+        }
+
+        .name {
+            text-align: center;
+        }
+
+        .heading {
+            text-align: center;
+        }
+
+
+    </style>
+
+    <script>
+        function isInGame() {
+            return document.getElementById("ingame").style.visibility === "visible"
+        }
+
+        function toggleInGame() {
+            if (!isInGame()) {
+                document.getElementById("info").innerHTML = "Click on people who you don't think it is"
+                document.getElementById("ingame").style.visibility = "visible";
+                document.getElementById("random").style.visibility = "hidden";
+            } else {
+                document.getElementById("info").innerHTML = "Select a player your opponent must guess";
+                document.getElementById("ingame").style.visibility = "hidden";
+                document.getElementById("random").style.visibility = "visible";
+            }
+        }
+
+        function updateSelected(src, name) {
+            document.getElementById("selected-image").src = src;
+            document.getElementById("selected-name").innerHTML = name;
+        }
+
+        function toggle(el) {
+            if (!isInGame()) {
+                image = el.childNodes[1]
+                updateSelected(image.src, image.alt)
+                toggleInGame()
+                return;
+            }
+            let dark_opacity = "0.2"
+            if (el.style.opacity !== dark_opacity) {
+                el.style.opacity = dark_opacity;
+            } else {
+                el.style.opacity = "1"
+            }
+        }
+
+        function reset() {
             toggleInGame()
-            return;
+            var allPeople = document.getElementsByClassName("person")
+            for (person of allPeople) {
+                console.log("Done")
+                person.style.opacity = "1"
+            }
         }
-        let dark_opacity = "0.2"
-        if (el.style.opacity !== dark_opacity) {
-            el.style.opacity = dark_opacity;
-        } else {
-            el.style.opacity = "1"
+
+        function randomImage() {
+            imgAr = [{% for i in images %} ["{{ i.photo.url }}", "{{ i.name }}"], {% endfor %}]
+            var num = Math.floor(Math.random() * imgAr.length);
+            updateSelected(imgAr[num][0], imgAr[num][1])
+            toggleInGame()
         }
-    }
-
-    function reset() {
-        toggleInGame()
-        var allPeople = document.getElementsByClassName("person")
-        for (person of allPeople) {
-            console.log("Done")
-            person.style.opacity = "1"
-        }
-    }
-
-    function randomImage() {
-        imgAr = [{% for i in images %} ["{{ i.photo.url }}", "{{ i.name }}"], {% endfor %}]
-        var num = Math.floor(Math.random() * imgAr.length);
-        updateSelected(imgAr[num][0], imgAr[num][1])
-        toggleInGame()
-    }
 
 
-</script>
+    </script>
+{% endblock %}
 
-<body>
-<div class="container">
-    <h4 id="info" class="heading">Select a person your opponent must guess</h4>
-    <div class="row">
-        {% for i in images %}
-            <div class="person" onclick="toggle(this)">
-                <img class="person-image" src="{{ i.photo.url }}" onclick="" alt="{{ i.name }}"/>
-                <div class="name">{{ i.name }}</div>
-            </div>
-        {% endfor %}
-    </div>
-
-
-    <button onclick="randomImage()" id="random">Random</button>
-
-    <div id="ingame" style="visibility: hidden;">
-    <div class="row">
-        <div>
-            <h5 class="heading">Your opponent must guess</h5>
-            <img class="selected-person" id="selected-image" src="{% static "placeholder.png" %}" style="width: 30%">
-            <div class="name" id="selected-name">None</div>
+{% block content %}
+        <h4 id="info" class="heading">Select a person your opponent must guess</h4>
+        <div class="row">
+            {% for i in images %}
+                <div class="person" onclick="toggle(this)">
+                    <img class="person-image" src="{{ i.photo.url }}" onclick="" alt="{{ i.name }}"/>
+                    <div class="name">{{ i.name }}</div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
-    <div class="row">
-        <button onclick="reset()">Reset</button>
-    </div>
-    </div>
 
-    Note: This platform won't tell whether you're right or wrong, when playing, you should interact with your opponent.
 
-</div>
-</div>
-</body>
-</html>
+        <button onclick="randomImage()" id="random">Random</button>
+
+        <div id="ingame" style="visibility: hidden;">
+            <div class="row">
+                <div>
+                    <h5 class="heading">Your opponent must guess</h5>
+                    <img class="selected-person" id="selected-image" src="{% static "placeholder.png" %}"
+                         style="width: 30%">
+                    <div class="name" id="selected-name">None</div>
+                </div>
+            </div>
+            <div class="row">
+                <button onclick="reset()">Reset</button>
+            </div>
+        </div>
+
+        Note: This platform won't tell whether you're right or wrong, when playing, you should interact with your
+        opponent.
+{% endblock %}
