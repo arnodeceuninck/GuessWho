@@ -52,9 +52,9 @@
     <div class="row">
         {% for i in images %}
             <div class="picture" onclick="toggle(this)">
-                <img src="{% static "placeholder.png" %}" onclick="" alt="alt-text"/>
+                <img src="{{ i.photo.url }}" onclick="" alt="{{ i.name }}"/>
                 <p>
-                <div class="name">Your text</div>
+                <div class="name">{{ i.name }}</div>
                 </p>
             </div>
         {% endfor %}
