@@ -16,8 +16,8 @@
 
         .person {
             cursor: pointer;
-            width: 15%;
-            margin: 10px
+            width: 14.28%;
+            padding: 0.5%
         }
 
         .person:hover {
@@ -92,10 +92,14 @@
     </script>
 {% endblock %}
 
+{% block nav-center %}
+
+            <a class="nav-item nav-link active" href="#">{{ deck.name }}</a>
+{% endblock %}
+
 {% block content %}
-        <h1 class="heading">{{ deck.name }}</h1>
-        <h4 id="info" class="heading">Select a person your opponent must guess</h4>
-        <div class="row">
+        <h6 id="info" class="heading">Select a person your opponent must guess</h6>
+        <div class="row ml-auto mr-auto">
             {% for i in deck.person_set.all %}
                 <div class="person" onclick="toggle(this)">
                     <img class="person-image" src="{{ i.photo.url }}" onclick="" alt="{{ i.name }}"/>
@@ -109,7 +113,7 @@
 
         <div id="ingame" style="visibility: hidden;">
             <div class="row">
-                <div style="margin-left: auto; margin-right: auto; width: 20%;">
+                <div class="mr-auto ml-auto" style="width: 25%;">
                     <h5 class="heading">Your opponent must guess</h5>
                     <img class="selected-person" id="selected-image" src="{% static "placeholder.png" %}"
                          style="width: 100%">

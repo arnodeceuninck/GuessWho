@@ -1,11 +1,11 @@
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.views.generic import FormView
 
-from .models import PersonSet, Person
+from .models import PersonSet, Person, Settings
 from .forms import CreateDeckForm
 from django.contrib import messages
 from django.urls import reverse
@@ -13,6 +13,9 @@ from django.views.generic.detail import DetailView
 import string
 import random
 
+
+def home(request):
+    return redirect("index", hash=Settings.objects.first().hash)
 
 def index(request, hash):
     personset = PersonSet.objects.filter(pk=hash).first()
@@ -47,7 +50,7 @@ def decks(request):
             return HttpResponseRedirect(reverse('index', kwargs={'hash': person_set.hash}))
     else:
         form = CreateDeckForm()
-    person_decks = PersonSet.objects.all()  # TODO: filter(user_id=request.user.id)
+    person_decks = PersonSet.objects.filter(user_id=request.user.id)
     for deck in person_decks:
         print(deck.name)
     return render(request, 'decks.html', {"decks": person_decks, "create_form": form})

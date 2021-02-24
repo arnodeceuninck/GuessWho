@@ -119,5 +119,5 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'guesswho.views.decks'
-LOGOUT_REDIRECT_URL = 'guesswho.views.index'
+LOGIN_REDIRECT_URL = 'decks'
+LOGOUT_REDIRECT_URL = 'home'

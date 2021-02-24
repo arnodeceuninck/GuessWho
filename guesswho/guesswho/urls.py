@@ -23,9 +23,8 @@ from . import views
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('decks', views.decks, name='decks'),
-                  # path('<str:hash>/edit', views.deck, name='deck'),
+                  path('', views.home, name='home'),
                   path('decks/<str:hash>', views.index, name='index'),
                   path('accounts/', include('django.contrib.auth.urls')),
-                # todo: Redirect '' to a sample hash
                   path('', include("accounts.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
