@@ -3,9 +3,9 @@
 
 {% block head %}
     <style>
-    .card{
-        margin: 10px;
-    }
+        .card {
+            margin: 10px;
+        }
     </style>
 {% endblock %}
 
@@ -15,16 +15,19 @@
             <div class="card-body">
                 <h5 class="card-title">{{ deck.name }}</h5>
                 <a href="{% url 'index' hash=deck.hash %}" class="card-link">Play</a>
-                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link" style="color: red;">Remove</a>
             </div>
         </div>
     {% endfor %}
 
     <div class="card" style="width: 18rem; margin-left: auto; margin-right: auto;">
         <div class="card-body">
-{#            <h5 class="card-title">{{ deck.name }}</h5>#}
-{#            <a href="{% url 'index' hash=deck.hash %}" class="card-link">Play</a>#}
-            <a href="#" class="card-link">New Deck</a>
+            <h5 class="card-title">Create new deck</h5>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ create_form.as_p }}
+                <button type="submit">Create</button>
+            </form>
         </div>
     </div>
 

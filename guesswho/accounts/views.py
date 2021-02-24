@@ -2,12 +2,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 
 
 @login_required
 def index(request):
-    return render(request, 'accounts/index.html')
+    return redirect(reverse('decks'))
 
 
 def sign_up(request):

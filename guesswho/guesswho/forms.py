@@ -2,6 +2,7 @@ from .models import PersonSet, Person
 from django import forms
 from django.forms import inlineformset_factory
 
+
 class CreateDeckForm(forms.Form):
     name = forms.CharField(max_length=255)
     images = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))

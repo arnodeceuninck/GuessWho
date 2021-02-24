@@ -22,10 +22,10 @@ from . import views
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('', include("accounts.urls")),
-                  path('accounts/', include('django.contrib.auth.urls')),
                   path('decks', views.decks, name='decks'),
-                  path('decks/create', views.DeckView.as_view(), name='CreateDeck'),
                   # path('<str:hash>/edit', views.deck, name='deck'),
-                  path('<str:hash>', views.index, name='index')
+                  path('decks/<str:hash>', views.index, name='index'),
+                  path('accounts/', include('django.contrib.auth.urls')),
+                # todo: Redirect '' to a sample hash
+                  path('', include("accounts.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
