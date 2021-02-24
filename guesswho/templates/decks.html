@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ deck.name }}</h5>
                 <a href="{% url 'index' hash=deck.hash %}" class="card-link">Play</a>
-                <a href="#" class="card-link" style="color: red;">Remove</a>
+                <a href="{% url 'remove' hash=deck.hash %}" class="card-link" style="color: red;">Remove</a>
             </div>
         </div>
     {% endfor %}

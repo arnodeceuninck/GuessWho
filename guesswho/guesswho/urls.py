@@ -24,6 +24,8 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('decks', views.decks, name='decks'),
                   path('', views.home, name='home'),
+                  path('instructions', views.instructions, name='instructions'),
+                  path('decks/<str:hash>/remove', views.remove, name='remove'),
                   path('decks/<str:hash>', views.index, name='index'),
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('', include("accounts.urls")),

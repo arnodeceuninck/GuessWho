@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        .card {
+            margin: 10px;
+        }
+    </style>
+    <script>
+    function submit(){
+        document.getElementById("postForm").submit();
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <form id="postForm" method="post" style="visibility: hidden">
+    {% csrf_token %}
+    </form>
+    <div class="card" style="width: 18rem; margin-left: auto; margin-right: auto;">
+        <div class="card-body">
+            <h5 class="card-title">Do you really want to delete {{ deck.name }}?</h5>
+            <a onclick="submit()" class="card-link" style="color: red;">Yes</a>
+            <a href="{% url 'decks' %}" class="card-link">No</a>
+        </div>
+    </div>
+{% endblock %}

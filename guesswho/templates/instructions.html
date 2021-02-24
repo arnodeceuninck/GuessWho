@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        .card {
+            margin: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+        <div class="card" style="width: 18rem; margin-left: auto; margin-right: auto;">
+            <div class="card-body">
+                <h5 class="card-title">Game instructions</h5>
+                <p>The rules can be found <a href="https://www.ultraboardgames.com/guess-who/game-rules.php">here</a>. You must first select a mystery player (you can also do this using the random button) and then click on the player who you don't think it is after your question is answered. This game doesn't tell you wheter your choices are right, your opponent must tell whether you're right. After the game, you can hit 'reset' to play again.</p>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin-left: auto; margin-right: auto;">
+            <div class="card-body">
+                <h5 class="card-title">Adding your own decks</h5>
+                <p>After logging in, you can add a deck (under <a href="{% url 'decks' %}">Decks</a>) by choosing a name and uploading your pictures. The filename of the pictures (without extension) will be taken as the name that must be guessed. After doing this, you can copy the url from your browser and share it with friends, so they can play with you.</p>
+            </div>
+        </div>
+
+{% endblock %}
