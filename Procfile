@@ -1,0 +1,1 @@
+web: gunicorn guesswho/guesswho.wsgi --log-file -

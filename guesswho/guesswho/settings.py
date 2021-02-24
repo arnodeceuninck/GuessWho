@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os.path
+import os
+
+PRODUCTION = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=0$ynk0(+b$_%zjkx4ajebq^@&av-*6us6z7p+qnj2oxrwoysd'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "localhost"]
 
 # Application definition
 
@@ -42,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -49,6 +47,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'guesswho.urls'
 
@@ -121,3 +121,20 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'decks'
 LOGOUT_REDIRECT_URL = 'home'
+
+if PRODUCTION:
+    #src: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
+
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    DEBUG = False
+    SECRET_KEY = os.environ['SECRET_KEY']
+else:
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '=0$ynk0(+b$_%zjkx4ajebq^@&av-*6us6z7p+qnj2oxrwoysd'
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
