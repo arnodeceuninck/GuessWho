@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PersonSet, Person
+from .models import PersonSet, Person, Settings
 
 
 class PersonInline(admin.StackedInline):
@@ -12,3 +12,4 @@ class PersonSetAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PersonSet, PersonSetAdmin)
+admin.site.register(Settings)
