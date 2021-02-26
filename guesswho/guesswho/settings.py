@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "https://custom-guesswho.herokuapp.com/"]
 
 # Application definition
 
@@ -130,7 +130,7 @@ if PRODUCTION:
 
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    DEBUG = False
+    DEBUG = True
     SECRET_KEY = os.environ['SECRET_KEY']
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
