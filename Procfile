@@ -1,1 +1,1 @@
-web: gunicorn guesswho/guesswho.wsgi --log-file -
+web: cd guesswho && gunicorn guesswho.wsgi --log-file -
