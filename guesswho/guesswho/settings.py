@@ -122,6 +122,8 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'decks'
 LOGOUT_REDIRECT_URL = 'home'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 if PRODUCTION:
     #src: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment
     import dj_database_url
@@ -130,9 +132,9 @@ if PRODUCTION:
 
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    DEBUG = True
+
+    DEBUG = True # TODO
     SECRET_KEY = os.environ['SECRET_KEY']
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = '=0$ynk0(+b$_%zjkx4ajebq^@&av-*6us6z7p+qnj2oxrwoysd'

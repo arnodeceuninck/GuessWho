@@ -17,6 +17,6 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return render(request, 'accounts/index.html')
+            return redirect(reverse('decks'))
     context['form'] = form
     return render(request, 'registration/sign_up.html', context)
