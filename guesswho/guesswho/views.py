@@ -12,7 +12,7 @@ from .models import PersonSet, Person, Settings
 
 def home(request):
     settings = Settings.objects.first()
-    return redirect("index", hash=settings.hash) if settings else redirect('login')
+    return redirect("index", hash=settings.default_hash) if settings else redirect('login')
 
 
 def index(request, hash):
